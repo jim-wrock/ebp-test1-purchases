@@ -31,6 +31,7 @@ export class PurchasesComponent implements OnInit {
     this.purchases?.push(Number(this.purchaseForm.value.amount));
     this.updateTotal();
     this.calculateChange();
+    this.purchaseForm.reset();
   }
 
   /**
@@ -76,7 +77,7 @@ export class PurchasesComponent implements OnInit {
    * clears all purchases and associated data
    */
   clearAll() {
-    this.purchaseForm.setValue({amount: ''});
+    this.purchaseForm.reset();
     this.purchases = new Array();
     this.resetChange();
     this.totalAmount = undefined;
