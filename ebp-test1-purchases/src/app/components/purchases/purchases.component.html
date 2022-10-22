@@ -1,1 +1,44 @@
-<p>purchases works!</p>
+<div id="page-container" class="container">
+  <legend>Calculateur de monnaie</legend>
+  <div class="row">
+    <div class="col col-md-12" style="overflow-y: auto; max-height: 100vh">
+      <form [formGroup]="purchaseForm" (ngSubmit)="save()">
+        <div class="mb-3">
+          <label for="amount" class="form-label">Montant du nouvel achat</label>
+          <input
+            type="number"
+            class="form-control"
+            id="amount"
+            formControlName="amount"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Acheter</button>
+        <button id="clear-button" class="btn btn-primary" (click)="clearAll()">Vider Panier</button>
+      </form>
+    </div>
+    <div id="purchases" class="purchases-container">
+      <label for="purchases" class="form-label adjust-label">Achats :</label>
+      <div *ngFor="let purchase of purchases" class="col col-md-6">
+        <li>{{ purchase }}</li>
+      </div>
+    </div>
+
+    <div id="total" class="purchases-container">
+      <label for="total" class="form-label adjust-label">Total :</label>
+      <div class="col col-md-6">
+        <li>{{ totalAmount ? totalAmount : 0 }}</li>
+      </div>
+    </div>
+
+    <div id="total" class="purchases-container">
+      <label for="total" class="form-label adjust-label">A rendre :</label>
+      <div class="col col-md-6">
+        <li *ngFor="let tenBuck of tenBucks">10 euros</li>
+        <li *ngFor="let fiveBuck of fiveBucks">5 euros</li>
+        <li *ngFor="let buck of bucks">1 euro</li>
+      </div>
+    </div>
+
+  </div>
+</div>
+
