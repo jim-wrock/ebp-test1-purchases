@@ -1,8 +1,9 @@
 <div id="page-container" class="container">
   <legend>Calculateur de monnaie</legend>
   <div class="row">
+    <!-- make new purchase -->
     <div class="col col-md-12" style="overflow-y: auto; max-height: 100vh">
-      <form [formGroup]="purchaseForm" (ngSubmit)="save()">
+      <form [formGroup]="purchaseForm" (ngSubmit)="submit()">
         <div class="mb-3">
           <label for="amount" class="form-label">Montant du nouvel achat</label>
           <input
@@ -13,23 +14,24 @@
           />
         </div>
         <button type="submit" class="btn btn-primary">Acheter</button>
-        <button id="clear-button" class="btn btn-primary" (click)="clearAll()">Vider Panier</button>
+        <button id="clear-button" class="btn btn-primary" (click)="clearAll()">Vider le panier</button>
       </form>
     </div>
+    <!-- purchase(s) list -->
     <div id="purchases" class="purchases-container">
       <label for="purchases" class="form-label adjust-label">Achats :</label>
       <div *ngFor="let purchase of purchases" class="col col-md-6">
-        <li>{{ purchase }}</li>
+        <li *ngIf="purchase">{{ purchase }}</li>
       </div>
     </div>
-
+    <!-- total amount of purchases -->
     <div id="total" class="purchases-container">
       <label for="total" class="form-label adjust-label">Total :</label>
       <div class="col col-md-6">
-        <li>{{ totalAmount ? totalAmount : 0 }}</li>
+        <li *ngIf="totalAmount !== 0">{{ totalAmount }}</li>
       </div>
     </div>
-
+    <!-- change to give to the client -->
     <div id="total" class="purchases-container">
       <label for="total" class="form-label adjust-label">A rendre :</label>
       <div class="col col-md-6">
@@ -38,7 +40,6 @@
         <li *ngFor="let buck of bucks">1 euro</li>
       </div>
     </div>
-
   </div>
 </div>
 

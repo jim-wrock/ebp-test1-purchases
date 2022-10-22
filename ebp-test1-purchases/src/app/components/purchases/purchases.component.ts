@@ -19,34 +19,33 @@ export class PurchasesComponent implements OnInit {
     amount: new FormControl(''),
   });
 
-  preview: number | undefined;
-
   ngOnInit(): void {
+    // init arrays
     this.clearAll();
   }
 
-  save() {
+  /**
+   * called When user submits the form
+   */
+  submit() {
     this.purchases?.push(Number(this.purchaseForm.value.amount));
-    console.log("this.purchases = ", this.purchases);
     this.updateTotal();
-  }
-
-  updateTotal() {
-    this.totalAmount = this.purchases?.reduce((partialSum, a) => partialSum + a, 0);
     this.calculateChange();
   }
 
-  clearAll() {
-    this.purchaseForm.setValue({amount: ''});
-    this.purchases = new Array();
-    this.tenBucks = new Array();
-    this.fiveBucks = new Array();
-    this.bucks = new Array();
-    this.totalAmount = 0;
+  /**
+   * updates the total amount of purchases
+   */
+  updateTotal() {
+    this.totalAmount = this.purchases?.reduce((partialSum, a) => partialSum + a, 0);
   }
 
+  /**
+   * calculates the number of banknotes and coins to give back to the client as change
+   */
   calculateChange() {
     if (this.totalAmount) {
+      this.resetChange();
       const tenBucks = Math.floor(this.totalAmount / 10);
       for (let index = 0; index < tenBucks; index++) {
         this.tenBucks?.push(1);
@@ -62,6 +61,25 @@ export class PurchasesComponent implements OnInit {
         this.bucks?.push(1);
       }
     }
+  }
+
+/**
+ * resets the number of banknotes and coins to give back to the client as change
+ */
+    resetChange() {
+    this.tenBucks = new Array();
+    this.fiveBucks = new Array();
+    this.bucks = new Array();
+  }
+
+  /**
+   * clears all purchases and associated data
+   */
+  clearAll() {
+    this.purchaseForm.setValue({amount: ''});
+    this.purchases = new Array();
+    this.resetChange();
+    this.totalAmount = undefined;
   }
 
 }
